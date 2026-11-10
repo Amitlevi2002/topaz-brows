@@ -5,12 +5,12 @@ import { TOKEN } from './session';
 import { Lightbox } from './Gallery';
 import { extrasLabel, fmtPrice, priceOf, serviceName } from '../lib/catalog';
 import { dayLabel, waLink } from '../lib/format';
-import { BeforeAfter, PAIRS } from './BeforeAfter';
+import { BeforeAfter } from './BeforeAfter';
 import { Steps } from './Steps';
 import { readPick, savePick } from './pick';
 import { startMotion } from './motion';
 
-const GOLD_LOGO = '/logo-gold.png';
+const LOGO_HERO = '/logo.png';
 const GOLD_MARK = '/mark-gold.png';
 
 /** A heading whose lines rise out of a mask, one after another. Each line stays one text node, so translation still finds it. */
@@ -79,7 +79,7 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
       <section className="hero">
         <div className="hero-glow" aria-hidden="true" />
         <h1 className="hero-logo">
-          <img src={GOLD_LOGO} alt="Topaz Mudahi Eyebrows" width={900} height={900} />
+          <img src={LOGO_HERO} alt="Topaz Mudahi Eyebrows" width={512} height={512} />
           <span className="shine" aria-hidden="true" />
         </h1>
         <p className="hero-line" data-hero>
@@ -115,36 +115,13 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
         </p>
       </section>
 
-      {/* with motion: a pinned scene, scrolling wipes "after" over "before"; without: the split frame with arrows */}
-      <section className="ba-scene" aria-label="לפני ואחרי">
-        <div className="stage">
-          {PAIRS.map((p, n) => (
-            <figure className="pair" key={p.before} style={{ zIndex: n + 1 }}>
-              <img className="before" src={p.before} alt={`גבה לפני הטיפול, לקוחה ${n + 1}`} />
-              <div className="after">
-                <img src={p.after} alt={`אותה גבה אחרי הטיפול, לקוחה ${n + 1}`} />
-              </div>
-              <span className="wipe-line" aria-hidden="true" />
-              <figcaption>
-                <span className="lbl-before">לפני</span>
-                <span className="lbl-after">אחרי</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-        <div className="ba-dots" aria-hidden="true">
-          {PAIRS.map((p) => (
-            <i key={p.before} />
-          ))}
-        </div>
-      </section>
-      <div className="ba-static">
+      <div className="ba-static" data-rise>
         <BeforeAfter />
       </div>
 
       <section className="menu-lux" id="menu" aria-labelledby="menu-h">
         <div className="menu-head">
-          <Lines className="display dark" id="menu-h" lines={[{ text: 'המחירון.' }]} />
+          <Lines className="display" id="menu-h" lines={[{ text: 'המחירון.' }]} />
           <p className="lede" data-rise>
             בוחרים טיפול ותוספות, והמחיר מתעדכן.
           </p>

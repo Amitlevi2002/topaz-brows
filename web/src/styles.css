@@ -449,6 +449,7 @@ body::before { background: var(--ink); }
 
 /* hero: the gold monogram alone in the dark, a light passing over the metal */
 .hero { position: relative; min-height: min(calc(100svh - var(--demo-h, 0px)), 920px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px 22px 70px; overflow: hidden; }
+.lux .hero::after { content: none; } /* the base sheet fades its own hero into beige; here the black runs on unbroken */
 .hero-glow { position: absolute; inset: -20% -30% auto; height: 120%; background: radial-gradient(42% 38% at 50% 42%, #c9a04a2e, #c9a04a0a 45%, transparent 70%); pointer-events: none; }
 .hero-logo { position: relative; margin: 0; line-height: 0; width: min(520px, 94vw); }
 .hero-logo img { width: 100%; height: auto; display: block; filter: drop-shadow(0 30px 60px #00000099); }
@@ -480,7 +481,7 @@ body::before { background: var(--ink); }
 .pair .lbl-after { opacity: 0; background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .ba-dots { display: flex; gap: 10px; }
 .ba-dots i { width: 6px; height: 6px; border-radius: 50%; background: #f2e8d833; }
-.ba-static { display: none; padding: 0 16px 40px; max-width: 1060px; margin: 0 auto; }
+.ba-static { padding: 0 16px 40px; max-width: 1060px; margin: 0 auto; }
 /* without motion: the scene is replaced by the split frame with arrows */
 .lux.still .ba-scene { display: none; }
 .lux.still .ba-static { display: block; }
@@ -623,50 +624,79 @@ input::placeholder, textarea::placeholder { color: #4a3725; opacity: 1; }
 /* English reads left to right: the arrows turn with it */
 html[dir="ltr"] .ba-arrow svg, html[dir="ltr"] .row .chev, html[dir="ltr"] .head .side:first-child .icon svg { transform: scaleX(-1); }
 
-/* the page behind the front page is black too, so overscroll never flashes beige */
-html:has(.lux), body:has(.lux) { background: #0d0906; }
 
-/* while the gallery holds still on a desktop, it fits one screen: heading on top, the frames sized by height */
-@media (pointer: fine) {
-  .lux.moving .gallery { height: calc(100svh - var(--demo-h, 0px)); padding: 40px 0; display: flex; flex-direction: column; justify-content: center; }
-  .lux.moving .gal-head { padding-bottom: 28px; width: 100%; }
-  .lux.moving .gallery .display { font-size: clamp(48px, 9vh, 120px); }
-  .lux.moving .track button { width: auto; height: min(58svh, 620px); max-width: none; }
-}
 .lux .card.book .input:focus-visible { outline: none; border-bottom: 2px solid var(--noir); }
 
-/* ---------- the signed-in booking screens, in the front page's black and gold ---------- */
-.cl-lux {
-  --bg: #0d0906; --paper: #1d150d; --card: #17110b; --ink: #f2e8d8; --muted: #c9b799; --line: #3a2c1c;
-  --bronze: #e9cf8a; --sand-deep: #e9cf8a; --gold: #c9a04a; --gold-hi: #f1d993;
-  --ok: #8fc9a0; --ok-bg: #18301f; --no: #f0a59a; --no-bg: #3a1714; --wait: #f1d993; --wait-bg: #33260f;
-  --glow: 0 0 0 1px #c9a04a1f;
-  min-height: 100dvh; background: var(--bg); color: var(--ink);
+
+/* ---------- brand colours: the logo's beige for the whole page, its gold for accents, dark brown for text ----------
+   One continuous beige from top to bottom (the same as the logo's own paper), no coloured blocks between sections. */
+.front.lux {
+  --ivory: #2a1d10; --ivory-2: #574431; --noir: #2a1d10; --noir-2: #c8aa88; --gold-3: #5e4113;
+  --deep-gold: linear-gradient(100deg, #4f360e 0%, #7d5a1c 40%, #a47a2e 55%, #6b4a14 75%, #4f360e 100%);
+  background: radial-gradient(90% 60% at 50% 0%, #dcc3a5, transparent 70%), radial-gradient(80% 50% at 50% 100%, #c9ab89aa, transparent 70%), #d2b596;
+  color: var(--ivory);
 }
-html:has(.cl-lux), body:has(.cl-lux) { background: #0d0906; }
-.cl-lux .brand-bar { background: #0d0906; }
-.cl-lux .brand b { color: var(--ink); }
-.cl-lux .brand small { color: var(--bronze); }
-.cl-lux .brand img { -webkit-mask: none; mask: none; }
-.cl-lux .title { font-family: var(--display); font-weight: 300; font-size: 40px; }
-.cl-lux .btn { background: linear-gradient(100deg, #7d5a1c 0%, #c9a04a 28%, #f6e2a4 46%, #c39a48 62%, #8a6420 100%); color: #1a1209; font-weight: 600; box-shadow: 0 16px 36px -20px #c9a04acc; border-radius: 980px !important; }
-.cl-lux .btn:disabled { background: #2a2016; color: #b9a684; box-shadow: none; }
-.cl-lux .btn.light { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
-.cl-lux .choice.on, .cl-lux .time.on, .cl-lux .preset.on { background: var(--gold-hi); color: #1a1209; border-color: var(--gold-hi); }
-.cl-lux .choice.on .main span, .cl-lux .choice.on .price { color: #1a1209; }
-.cl-lux .choice.on .radio { border-color: #1a1209; }
-.cl-lux .choice.on .radio::after { background: #1a1209; }
-.cl-lux .row .cal { background: var(--paper); }
-.cl-lux .input { color: var(--ink); border-bottom-color: #5a4630; }
-.cl-lux textarea.input { background: var(--card); border-color: var(--line); }
-.cl-lux input::placeholder, .cl-lux textarea::placeholder { color: #a8957a; }
-.cl-lux .steps i { background: #3a2c1c; }
-.cl-lux .steps i.on { background: var(--gold-hi); }
-.cl-lux .toggle { background: #3a2c1c; }
-.cl-lux .toggle.on { background: var(--gold); }
-.cl-lux .pill.pending { color: #f1d993; }
-.cl-lux .pill.approved { color: #9fd8ae; }
-.cl-lux .pill.rejected, .cl-lux .pill.cancelled { color: #f3b0a5; }
-.cl-lux .link.danger, .cl-lux .small-actions .danger { color: #f3b0a5; }
-.cl-lux .done .ring { background: var(--gold-hi); color: #1a1209; }
-.cl-lux :focus-visible { outline-color: var(--gold-hi); }
+.lux ::selection { background: #2a1d10; color: #f1d993; }
+.lux .display .gold, .lux .pair .lbl-after { background: var(--deep-gold); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lux .cursor { border-color: #5e4113; mix-blend-mode: normal; }
+.lux .cursor.big { background: #f1d99355; }
+.lux :focus-visible { outline-color: #2a1d10; }
+
+.hero-glow { background: radial-gradient(42% 38% at 50% 42%, #f6e7c866, #f6e7c81a 45%, transparent 70%); }
+.hero-logo img { filter: none; -webkit-mask: radial-gradient(closest-side, #000 88%, transparent); mask: radial-gradient(closest-side, #000 88%, transparent); }
+.ghost-link { color: #2a1d10; border-bottom-color: #2a1d1055; }
+.ghost-link:hover { border-color: #2a1d10; }
+.scroll-cue { background: #2a1d1022; }
+.scroll-cue i { background: linear-gradient(transparent, #5e4113); }
+.lux .gold-btn { box-shadow: 0 0 0 1px #f6e2a499 inset, 0 18px 36px -18px #7d5a1c99; }
+
+/* before/after on the beige */
+.ba-static .ba-frame { background: #f1d993; box-shadow: 0 0 0 1px #c39a4866, 0 40px 70px -40px #3d2a1299; }
+.ba-static figcaption { background: #f4ead9e6; color: #2a1d10; font-weight: 600; }
+.ba-static .after figcaption { background: var(--metal); color: #1a1209; }
+.ba-arrow { border-color: #2a1d1033; color: #2a1d10; }
+.ba-count { color: #574431; }
+
+/* price list: no block of its own, just hairlines on the same beige */
+.lux .menu-lux { background: transparent; color: #2a1d10; }
+.lux .menu-list, .lux .m-row { border-color: #2a1d101f; }
+.lux .m-row::before { background: linear-gradient(90deg, transparent, #f1d99355, transparent); }
+.lux .m-row .num { color: #6b5338; }
+.lux .m-row .pr { color: #5e4113; }
+.lux .m-row.on .tick { background: #2a1d10; border-color: #2a1d10; }
+.lux .m-row.on .tick::after { border-color: #f1d993; }
+.lux .chip { border-color: #2a1d1040; color: #2a1d10; }
+.lux .chip.on { background: var(--metal); color: #1a1209; border-color: transparent; }
+.lux .chip.on small { color: #3a2810; }
+
+/* gallery frames */
+.lux .track button { background: #c8aa88; box-shadow: 0 0 0 1px #c39a4855, 0 24px 40px -26px #3d2a1299; }
+
+/* booking: a lighter beige panel edged in gold, the gold monogram on top */
+.lux .card.book { background: linear-gradient(180deg, #ead9c2, #e3cdb0); color: #2a1d10; box-shadow: 0 0 0 1px #c39a4877, 0 50px 90px -50px #3d2a12aa; }
+.lux .card.book .field span { color: #574431; }
+.lux .card.book .input { color: #2a1d10; border-bottom-color: #2a1d1033; }
+.lux .card.book .input:focus-visible { border-bottom-color: #2a1d10; }
+.lux .card.book .btn { background: var(--metal); color: #1a1209; box-shadow: 0 16px 34px -20px #7d5a1c99; }
+.lux .card.book .btn:disabled { background: #cdb393; color: #3f2e1c; box-shadow: none; }
+.lux .book-pick { background: #2a1d100d; }
+.lux .book-pick > span { color: #574431; }
+.lux .steps i { background: #2a1d101f; }
+.lux .steps i.on { background: #2a1d10; }
+.book-mark { background: #d2b596; box-shadow: 0 0 0 1px #c39a4899, 0 14px 30px -16px #3d2a1299; }
+
+.foot { border-top-color: #2a1d101a; }
+.foot small { color: #574431; }
+.foot a:hover b { color: #5e4113; }
+
+/* floating total: beige glass, gold button */
+.bag-in { background: #e8d6bde6; box-shadow: 0 0 0 1px #c39a4866, 0 20px 50px -20px #3d2a1299; }
+.bag-what { color: #2a1d10; }
+.bag-what small { color: #574431; }
+
+/* the site kit's legal links on the same beige */
+body:has(.lux) .kit-foot { background: #d2b596; color: #3f2e1c; border-top: 1px solid #2a1d101a; }
+body:has(.lux) .kit-foot a { color: #2a1d10; }
+
+/* the base sheet makes .gallery a masonry grid; here it is a heading over one swipe strip */
+.lux .gallery { display: block; }
