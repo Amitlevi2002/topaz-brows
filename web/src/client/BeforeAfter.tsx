@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 /** Before/after pairs cut from the split photos Topaz posts. Which half is "after" is set when the photos are prepared. */
-const PAIRS = [1, 2, 3, 4, 5].map((n) => ({ before: `/ba/${n}-before.jpg`, after: `/ba/${n}-after.jpg` }));
+export const PAIRS = [1, 2, 3, 4, 5].map((n) => ({ before: `/ba/${n}-before.jpg`, after: `/ba/${n}-after.jpg` }));
 
 /** One frame split down the middle: before on one side, after on the other, the words written on the photo. */
 export function BeforeAfter() {

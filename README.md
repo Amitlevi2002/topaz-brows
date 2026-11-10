@@ -9,7 +9,7 @@ The interface is in Hebrew (right-to-left), with an English switch, built for ph
 ## What it does
 
 **For clients**
-- The front page opens on her logo, then her real before-and-after photos, one client at a time, split down the middle
+- The front page is black and gold, from her logo: the gold monogram alone on the first screen with a light passing over the metal, then a scene that holds still while scrolling wipes each client's "after" photo over her "before", then a sideways gallery of her work. Motion is GSAP with Lenis smooth scrolling (`web/src/client/motion.ts`); with reduced motion the page is still and the before/after becomes a split frame with arrows
 - Build a treatment on the price list: pick a treatment and extras (moustache, nose, tint, sideburns) and the total updates. A bar with the total floats at the bottom, and the choice is already selected when she reaches the treatment step of the booking
 - The nearest free time is shown on the front page, before signing in
 - Sign in with name and phone number (no passwords to forget)

@@ -29,9 +29,10 @@ export function ClientApp({ info }: { info: Info }) {
       />
     );
   return (
-    <>
+    // the booking screens wear the same black and gold as the front page
+    <div className="cl-lux">
       <BrandBar />
       <Booking api={api} info={info} name={name} onLogout={logout} />
-    </>
+    </div>
   );
 }
