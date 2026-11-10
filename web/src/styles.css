@@ -700,3 +700,14 @@ body:has(.lux) .kit-foot a { color: #2a1d10; }
 
 /* the base sheet makes .gallery a masonry grid; here it is a heading over one swipe strip */
 .lux .gallery { display: block; }
+
+/* the illustration: one face split down the middle, the words written on the photo like a beauty campaign.
+   The photo's left half is "before" in either language, so the tags sit on physical sides. */
+.ai-split { position: relative; margin: 36px auto 0; width: min(1000px, calc(100% - 32px)); border-radius: 6px; overflow: hidden; box-shadow: 0 0 0 1px #c39a4866, 0 50px 90px -50px #3d2a12bb; }
+.ai-split img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+.ai-split .tag { position: absolute; top: 4%; padding: .32em .9em .38em; border-radius: 980px; font: 500 clamp(17px, 3.2vw, 32px)/1 var(--display); color: #2a1d10; background: #f4ead9e6; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 10px 24px -14px #2a1d1099; white-space: nowrap; }
+.ai-split .tag.left { left: 4%; }
+.ai-split .tag.right { right: 4%; background: var(--metal); color: #1a1209; }
+.ai-split figcaption { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); padding: 4px 12px; border-radius: 980px; background: #f4ead9d9; color: #3f2e1c; font-size: 12px; letter-spacing: .06em; }
+.real-lede { margin: 56px auto 22px !important; padding: 0 24px; max-width: 1060px !important; }
+@media (min-width: 960px) { .real-lede { margin-top: 90px !important; } }

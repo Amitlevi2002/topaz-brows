@@ -12,6 +12,7 @@ import { startMotion } from './motion';
 
 const LOGO_HERO = '/logo.png';
 const GOLD_MARK = '/mark-gold.png';
+const AI_SPLIT = '/ba/ai-split.webp';
 
 /** A heading whose lines rise out of a mask, one after another. Each line stays one text node, so translation still finds it. */
 function Lines({ lines, className, id }: { lines: { text: string; gold?: boolean }[]; className: string; id?: string }) {
@@ -110,11 +111,23 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
 
       <section className="ba-intro">
         <Lines className="display" lines={[{ text: 'לפני.' }, { text: 'אחרי.', gold: true }]} />
-        <p className="lede" data-rise>
-          עבודות אמיתיות של טופז, כמו שצולמו בסטודיו.
-        </p>
       </section>
 
+      {/* one face split down the middle: the brow as it grows on the left, shaped on the right (an AI illustration, said so) */}
+      <figure className="ai-split" data-rise>
+        <img src={AI_SPLIT} alt="המחשה: אותה אישה, בצד אחד גבה טבעית לא מסודרת ובצד השני גבה מעוצבת ומשוקמת" width={1254} height={1254} />
+        <span className="tag left" aria-hidden="true">
+          לפני
+        </span>
+        <span className="tag right" aria-hidden="true">
+          אחרי
+        </span>
+        <figcaption>המחשה</figcaption>
+      </figure>
+
+      <p className="lede real-lede" data-rise>
+        ועבודות אמיתיות של טופז, כמו שצולמו בסטודיו:
+      </p>
       <div className="ba-static" data-rise>
         <BeforeAfter />
       </div>
