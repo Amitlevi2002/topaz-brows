@@ -5,14 +5,13 @@ import { TOKEN } from './session';
 import { Lightbox } from './Gallery';
 import { extrasLabel, fmtPrice, priceOf, serviceName } from '../lib/catalog';
 import { dayLabel, waLink } from '../lib/format';
-import { BeforeAfter } from './BeforeAfter';
+import { BrowMorph } from './BrowMorph';
 import { Steps } from './Steps';
 import { readPick, savePick } from './pick';
 import { startMotion } from './motion';
 
 const LOGO_HERO = '/logo.png';
 const GOLD_MARK = '/mark-gold.png';
-const AI_SPLIT = '/ba/ai-split.webp';
 
 /** A heading whose lines rise out of a mask, one after another. Each line stays one text node, so translation still finds it. */
 function Lines({ lines, className, id }: { lines: { text: string; gold?: boolean }[]; className: string; id?: string }) {
@@ -113,24 +112,8 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
         <Lines className="display" lines={[{ text: 'לפני.' }, { text: 'אחרי.', gold: true }]} />
       </section>
 
-      {/* one face split down the middle: the brow as it grows on the left, shaped on the right (an AI illustration, said so) */}
-      <figure className="ai-split" data-rise>
-        <img src={AI_SPLIT} alt="המחשה: אותה אישה, בצד אחד גבה טבעית לא מסודרת ובצד השני גבה מעוצבת ומשוקמת" width={1254} height={1254} />
-        <span className="tag left" aria-hidden="true">
-          לפני
-        </span>
-        <span className="tag right" aria-hidden="true">
-          אחרי
-        </span>
-        <figcaption>המחשה</figcaption>
-      </figure>
-
-      <p className="lede real-lede" data-rise>
-        ועבודות אמיתיות של טופז, כמו שצולמו בסטודיו:
-      </p>
-      <div className="ba-static" data-rise>
-        <BeforeAfter />
-      </div>
+      {/* one AI face (marked as an illustration): the whole face "before", then the brows change in place to "after" */}
+      <BrowMorph />
 
       <section className="menu-lux" id="menu" aria-labelledby="menu-h">
         <div className="menu-head">
