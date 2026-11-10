@@ -4,9 +4,9 @@ const SRC = '/ba/ai-split.webp';
 
 /**
  * Before/after slider on the AI picture Amit made (one face split down the middle, marked as an illustration).
- * It opens exactly like the picture: half the face before, half after. Dragging the gold handle (or the arrow keys)
- * moves the line, so more of the face shows "before" or "after". Behind the line each side is the picture's own half
- * mirrored across, so the face stays whole wherever the line stands. "Before" is on the picture's left in either language.
+ * The frame shows half a face only, the picture's left half: its brow as it grows. Over it lies the picture's
+ * right half turned to face the same way: the same brow shaped. Dragging the gold handle (or the arrow keys)
+ * moves the line across that one brow, so before and after are always the same brow, never a made-up face.
  */
 export function BrowMorph() {
   const [pos, setPos] = useState(50);
@@ -16,12 +16,6 @@ export function BrowMorph() {
     const r = frame.current!.getBoundingClientRect();
     setPos(Math.min(96, Math.max(4, ((clientX - r.left) / r.width) * 100)));
   };
-  const face = (side: 'before' | 'after') => (
-    <div className={`face ${side}`} aria-hidden="true" style={side === 'after' ? { clipPath: `inset(0 0 0 ${pos}%)` } : undefined}>
-      <img src={SRC} alt="" className="half own" draggable={false} />
-      <img src={SRC} alt="" className="half mirror" draggable={false} />
-    </div>
-  );
   return (
     <figure className="morph" data-rise>
       <div
@@ -36,8 +30,14 @@ export function BrowMorph() {
         onPointerUp={() => (dragging.current = false)}
         onPointerCancel={() => (dragging.current = false)}
       >
-        {face('before')}
-        {face('after')}
+        <div className="layer before" aria-hidden="true">
+          <img src={SRC} alt="" draggable={false} />
+        </div>
+        <div className="layer after" aria-hidden="true" style={{ clipPath: `inset(0 0 0 ${pos}%)` }}>
+          <div className="turn">
+            <img src={SRC} alt="" draggable={false} />
+          </div>
+        </div>
         <span className="divider" style={{ left: `${pos}%` }} aria-hidden="true">
           <i className="knob">
             <svg viewBox="0 0 24 24">

@@ -9,7 +9,7 @@ The interface is in Hebrew (right-to-left), with an English switch, built for ph
 ## What it does
 
 **For clients**
-- The front page is in the colours of her logo, beige and gold, with no blocks between sections: her logo on the first screen with a light passing over the gold, a before-and-after slider on one face (an AI illustration Amit made, marked as one on the page and in the terms): half the face untouched, half shaped, and a gold handle to drag or move with the arrow keys, and a swipe strip of her work. Scrolling is the browser's own; sections rise into view with GSAP (`web/src/client/motion.ts`), and with reduced motion nothing moves
+- The front page is in the colours of her logo, beige and gold, with no blocks between sections: her logo on the first screen with a light passing over the gold, a before-and-after slider on half a face (an AI illustration Amit made, marked as one on the page and in the terms): one brow, with a gold handle to drag or move with the arrow keys between it untouched and shaped, and a swipe strip of her work. Scrolling is the browser's own; sections rise into view with GSAP (`web/src/client/motion.ts`), and with reduced motion nothing moves
 - Build a treatment on the price list: pick a treatment and extras (moustache, nose, tint, sideburns) and the total updates. A bar with the total floats at the bottom, and the choice is already selected when she reaches the treatment step of the booking
 - The nearest free time is shown on the front page, before signing in
 - Sign in with name and phone number (no passwords to forget)

@@ -712,19 +712,19 @@ body:has(.lux) .kit-foot a { color: #2a1d10; }
 .real-lede { margin: 56px auto 22px !important; padding: 0 24px; max-width: 1060px !important; }
 @media (min-width: 960px) { .real-lede { margin-top: 90px !important; } }
 
-/* ---------- before/after slider on one face ----------
-   Each side is the picture's own half mirrored across (the picture's centre line cut away), so the face stays whole
-   wherever the line stands; at 50% it looks exactly like the original split picture. */
-.morph { position: relative; margin: 36px auto 0; width: min(1000px, calc(100% - 32px)); }
-.morph-frame { position: relative; aspect-ratio: 1; border-radius: 6px; overflow: hidden; background: #d2b596; box-shadow: 0 0 0 1px #c39a4866, 0 50px 90px -50px #3d2a12bb; touch-action: pan-y; cursor: ew-resize; user-select: none; }
-.morph .half { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-.morph .face { position: absolute; inset: 0; }
-.morph .before .own { clip-path: inset(0 50.7% 0 0); transform: translateX(0.7%); }
-.morph .before .mirror { clip-path: inset(0 50.7% 0 0); transform: translateX(-0.7%) scaleX(-1); }
-.morph .after .own { clip-path: inset(0 0 0 50.7%); transform: translateX(-0.7%); }
-.morph .after .mirror { clip-path: inset(0 0 0 50.7%); transform: translateX(0.7%) scaleX(-1); }
+/* ---------- before/after slider on half a face ----------
+   The picture is twice as wide as the frame shows: the frame sees its left half (the brow before);
+   the "after" layer sees its right half, turned around so the shaped brow faces the same way and lies on the same spot.
+   The picture's own centre line falls outside both views. Sizes are in container units so the crop holds at any width. */
+.morph { position: relative; margin: 36px auto 0; width: min(560px, calc(100% - 32px)); }
+.morph-frame { position: relative; aspect-ratio: 4 / 5; container-type: inline-size; border-radius: 6px; overflow: hidden; background: #d2b596; box-shadow: 0 0 0 1px #c39a4866, 0 50px 90px -50px #3d2a12bb; touch-action: pan-y; cursor: ew-resize; user-select: none; }
+.morph .layer { position: absolute; inset: 0; overflow: hidden; }
+.morph .turn { position: absolute; inset: 0; transform: scaleX(-1); }
+.morph .layer img { position: absolute; width: 206cqw; height: 206cqw; max-width: none; top: -24cqw; pointer-events: none; }
+.morph .before img { left: 0; }
+.morph .after img { left: -106cqw; }
 .morph .divider { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: linear-gradient(#f6e2a4, #c9a04a 50%, #f6e2a4); box-shadow: 0 0 12px #f1d99399; pointer-events: none; }
-.morph .knob { position: absolute; top: 50%; left: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; background: var(--metal); display: grid; place-items: center; box-shadow: 0 0 0 3px #f4ead9cc, 0 12px 26px -10px #2a1d10aa; }
+.morph .knob { position: absolute; top: 80%; left: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; background: var(--metal); display: grid; place-items: center; box-shadow: 0 0 0 3px #f4ead9cc, 0 12px 26px -10px #2a1d10aa; }
 .morph .knob svg { width: 24px; height: 24px; fill: none; stroke: #1a1209; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .morph .tag { position: absolute; top: 4%; padding: .32em .9em .38em; border-radius: 980px; font: 500 clamp(17px, 3.2vw, 32px)/1 var(--display); white-space: nowrap; box-shadow: 0 10px 24px -14px #2a1d1099; pointer-events: none; }
 .morph .t-before { left: 4%; color: #2a1d10; background: #f4ead9e6; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
