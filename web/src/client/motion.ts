@@ -45,13 +45,13 @@ export function startMotion(root: HTMLElement): () => void {
 
     // headings rise line by line, blocks and lists fade up, once, as she reaches them
     gsap.utils.toArray<HTMLElement>('[data-words]').forEach((el) => {
-      gsap.fromTo(el.querySelectorAll('.w > i'), { yPercent: 110 }, { yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: 0.06, scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+      gsap.fromTo(el.querySelectorAll('.w > i'), { yPercent: 100 }, { yPercent: 0, duration: 0.8, ease: 'power3.out', stagger: 0.05, scrollTrigger: { trigger: el, start: 'top 105%', once: true } });
     });
     gsap.utils.toArray<HTMLElement>('[data-rise]').forEach((el) => {
-      gsap.fromTo(el, { autoAlpha: 0, y: 36 }, { autoAlpha: 1, y: 0, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+      gsap.fromTo(el, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 105%', once: true } });
     });
     gsap.utils.toArray<HTMLElement>('[data-stagger]').forEach((el) => {
-      gsap.fromTo(el.children, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power4.out', stagger: 0.06, scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+      gsap.fromTo(el.children, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.05, scrollTrigger: { trigger: el, start: 'top 105%', once: true } });
     });
 
     // magnetic buttons and the gold cursor, for a mouse only

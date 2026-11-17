@@ -27,6 +27,13 @@ function Lines({ lines, className, id }: { lines: { text: string; gold?: boolean
 }
 
 /* ---------- the front page: gold on black, her work, a treatment she puts together, then name and phone ---------- */
+const DESCRIPTIONS: Record<string, string> = {
+  design:
+    'טיפול שבו אני מנקה ומעצבת את הגבות לפי מבנה הפנים שלך, ליצור מראה מחמיא, מסודר, נקי והכי חשוב: טבעי. אם הגבה צריכה שיקום, נכנסים לסדרת שיקום שדורשת הקפדה: להגיע לתור כל 3 שבועות. אני נותנת לך שמן קיק שמזין ומחזק את שורש השיער ומעודד צמיחה, ויש להשתמש בו פעמיים ביום.',
+  lift:
+    'טיפול שמעניק לגבה מראה מורם, מסודר ומלא יותר. במהלך הטיפול אני מסדרת את השערות כלפי מעלה, בצורה שמדגישה את הגבה ונותנת לפנים מראה פתוח ומטופח. המטרה: לפטור אותך מלשים ג׳ל גבות על השערות בכל פעם. ההרמה מחזיקה עד חודש וחצי.',
+};
+
 export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, name: string) => void }) {
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
@@ -75,6 +82,9 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
   return (
     <div className="front lux" ref={root}>
       <div className="cursor" aria-hidden="true" />
+      <div className="glitter" aria-hidden="true">
+        <i className="g1" /><i className="g2" /><i className="g3" /><i className="g4" /><i className="g5" />
+      </div>
 
       <section className="hero">
         <div className="hero-glow" aria-hidden="true" />
@@ -92,19 +102,6 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
           <a className="ghost-link" href="#menu">
             למחירון
           </a>
-        </div>
-        {info.nextFree && (
-          <p className="next-free" data-hero>
-            {'התור הפנוי הקרוב: '}
-            <b>
-              {dayLabel(info.nextFree.date)}
-              {', '}
-              <span className="ltr">{info.nextFree.time}</span>
-            </b>
-          </p>
-        )}
-        <div className="scroll-cue" aria-hidden="true">
-          <i />
         </div>
       </section>
 
@@ -138,6 +135,7 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
               <b>{s.name}</b>
               <span className="pr">{fmtPrice(s.price, s.from)}</span>
               <span className="tick" aria-hidden="true" />
+              {DESCRIPTIONS[s.id] && <span className="m-desc">{DESCRIPTIONS[s.id]}</span>}
             </button>
           ))}
         </div>
@@ -167,6 +165,47 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
             </div>
           </div>
         )}
+      </section>
+
+      <section className="tools" aria-labelledby="tools-h">
+        <Lines className="display" id="tools-h" lines={[{ text: 'ביד.' }, { text: 'בדיוק.', gold: true }]} />
+        <p className="lede" data-rise>
+          מנקה ומעצבת לפי מבנה הפנים שלך, למראה מסודר, נקי והכי חשוב: טבעי.
+        </p>
+        <ul className="tool-row" data-stagger aria-hidden="true">
+          <li>
+            <svg viewBox="0 0 60 220">
+              <path d="M30 4c9 0 14 5 14 12v54c0 5-3 8-6 10l-2 6h-12l-2-6c-3-2-6-5-6-10V16c0-7 5-12 14-12z" />
+              <path d="M22 28h16M22 38h16M22 48h16M22 58h16" />
+              <path d="M26 86h8v118c0 3-2 5-4 5s-4-2-4-5z" />
+            </svg>
+            <span>מברשת</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 60 220">
+              <path d="M24 6h12v70l5 124h-6L30 96 25 200h-6l5-124z" />
+              <path d="M24 6c-1 40 2 60 6 90M36 6c1 40-2 60-6 90" />
+            </svg>
+            <span>פינצטה</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 60 220">
+              <circle cx="20" cy="190" r="12" />
+              <circle cx="40" cy="190" r="12" />
+              <path d="M24 179L36 8l2 0-8 140 14 -2M36 179L24 8l-2 0 8 140-14-2" />
+              <path d="M30 100l0 0" />
+            </svg>
+            <span>מספריים</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 60 220">
+              <path d="M30 6l9 38H21z" />
+              <path d="M21 44h18v156H21z" />
+              <path d="M21 62h18M21 190h18" />
+            </svg>
+            <span>עיפרון</span>
+          </li>
+        </ul>
       </section>
 
       {info.gallery.length > 0 && (
