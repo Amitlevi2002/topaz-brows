@@ -44,6 +44,10 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
   const [extras, setExtras] = useState<Extras>(() => readPick().extras);
   const [formInView, setFormInView] = useState(false);
   const root = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
+  // the page is right-to-left: "next" moves toward the left
+  const slide = (dir: number) => track.current?.scrollBy({ left: dir * Math.min(720, track.current.clientWidth * 0.8), behavior: 'smooth' });
   const form = useRef<HTMLFormElement>(null);
   const api = useMemo(() => makeApi(TOKEN, () => {}), []);
 
@@ -213,12 +217,51 @@ export function Welcome({ info, onDone }: { info: Info; onDone: (token: string, 
           <div className="gal-head">
             <Lines className="display" id="gal-h" lines={[{ text: 'עוד' }, { text: 'עבודות.', gold: true }]} />
           </div>
-          <div className="track">
+          <div
+            className="track"
+            ref={track}
+            tabIndex={0}
+            onPointerDown={(e) => {
+              if (e.pointerType !== 'mouse') return;
+              drag.current = { x: e.clientX, left: track.current!.scrollLeft, moved: false };
+            }}
+            onPointerMove={(e) => {
+              const d = drag.current;
+              if (!d) return;
+              const dx = e.clientX - d.x;
+              if (Math.abs(dx) > 5) {
+                d.moved = true;
+                track.current!.classList.add('dragging');
+                track.current!.style.scrollSnapType = 'none';
+              }
+              if (d.moved) track.current!.scrollLeft = d.left - dx;
+            }}
+            onPointerUp={() => {
+              track.current?.classList.remove('dragging');
+              if (track.current) track.current.style.scrollSnapType = '';
+              setTimeout(() => (drag.current = null), 0);
+            }}
+            onPointerLeave={() => {
+              track.current?.classList.remove('dragging');
+              if (track.current) track.current.style.scrollSnapType = '';
+              drag.current = null;
+            }}
+            onClickCapture={(e) => {
+              if (drag.current?.moved) {
+                e.stopPropagation();
+                e.preventDefault();
+              }
+            }}
+          >
             {info.gallery.map((p, n) => (
               <button key={p.id} onClick={() => setLb(n)} aria-label="הגדלת תמונה">
                 <img src={p.url} alt="גבות לפני ואחרי, עבודה של טופז" loading="lazy" />
               </button>
             ))}
+          </div>
+          <div className="track-nav">
+            <button type="button" aria-label="הקודם" onClick={() => slide(1)}>→</button>
+            <button type="button" aria-label="הבא" onClick={() => slide(-1)}>←</button>
           </div>
         </section>
       )}
